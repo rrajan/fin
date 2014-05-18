@@ -31,7 +31,8 @@ if __name__ == '__main__':
     tr = pd.DataFrame(tgp['tprice'].mean()).join(pd.DataFrame(tgp['tq'].sum()))
 
     book = tr.join(ba, how="outer")
-    #book['tprice'] = book['tprice'].fillna(0)
-    #book['tq'] = book['tq'].fillna(0)
+    book['tprice'] = book['tprice'].fillna(0)
+    book['tq'] = book['tq'].fillna(0)
+    book = book.fillna(method='ffill')
 
     book.to_csv(sys.argv[2])

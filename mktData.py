@@ -20,15 +20,14 @@ def get_underlying(sym, start_date):
     print 'get_underlying():', now2-now
     return (now, dr)
 
-def get_options(sym, expiry):
+def get_options(sym, expiry, above_below=0):
     opt = Options(sym, 'yahoo')
     now = datetime.datetime.now()
     opt_data = opt.get_options_data(expiry=expiry)
+    if (above_below > 0):
+        opt_data = opt.get_near_stock_price(expiry=expiry, put=True, above_below=above_below)
     now2 = datetime.datetime.now()
-    opt_data2 = opt.get_near_stock_price(expiry=expiry, put=True, above_below=4)
-    now3 = datetime.datetime.now()
     print 'get_options():', now2-now
-    print 'get_options():', now3-now2
     return (now, opt_data2)
 
 if __name__ == '__main__':
